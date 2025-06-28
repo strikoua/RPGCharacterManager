@@ -1,24 +1,51 @@
 package com.example.dndcharactersheetmanager
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.dndcharactersheetmanager.ui.theme.DnDCharacterSheetManagerTheme
+import com.example.dndcharactersheetmanager.databinding.ActivityMainBinding
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 
-class MainActivity : ComponentActivity() {
+class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        setContentView(R.layout.activity_main)
         enableEdgeToEdge()
-        setContent {
-        }
+        getDnDClasses()
     }
+
+    private fun getDnDClasses() {
+        val call = RetrofitInstance.api.getClasses()
+
+        call.enqueue(object : Callback<ClassListResponse> {
+            override fun onResponse(
+                call: Call<ClassListResponse>,
+                response: Response<ClassListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val classList = response.body()
+                    Log.d("DND_API", "Success! Got ${classList?.count} classes")
+                    classList?.results?.forEach {
+                        Log.d("DND_API", "Class: ${it.name}")
+                    }
+                } else {
+                    Log.e("DND_API", "Response error: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ClassListResponse>, t: Throwable) {
+                Log.e("DND_API", "Network Error: ${t.message}")
+            }
+        })
+    }
+
 }
+
 

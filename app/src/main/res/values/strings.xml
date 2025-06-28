@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">DnD Character Sheet Manager</string>
+    <string name="character_name">Character Name</string>
+    <string name="character_race">Character Race</string>
+    <string name="character_class_level">Character Class plus Level</string>
+    <string name="stats_button">Stats</string>
+    <string name="items_button">Items</string>
+    <string name="attacks_button">Attacks</string>
+    <string name="spells_button">Spells</string>
+    <string name="current_hp_text">  </string>
+    <string name="maximum_hp"> </string>
 </resources>
