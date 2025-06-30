@@ -2,15 +2,16 @@ package com.example.dndcharactersheetmanager
 
 import android.os.Bundle
 import android.util.Log
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.example.dndcharactersheetmanager.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.dndcharactersheetmanager.apiCalls.ClassDetails
+import com.example.dndcharactersheetmanager.apiCalls.ClassListResponse
+import com.example.dndcharactersheetmanager.apiCalls.RaceDetailsResponse
+import com.example.dndcharactersheetmanager.apiCalls.RaceListResponse
+import kotlin.math.floor
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         enableEdgeToEdge()
-        getDnDRaces()
+        getRaceDetails("dragonborn")
     }
 
     private fun getDnDClasses() {
@@ -87,6 +88,29 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<RaceListResponse>, t: Throwable) {
                 Log.e("DND_API", "Network Error: ${t.message}")
+            }
+        })
+    }
+
+    private fun getRaceDetails(index: String) {
+        val call = RetrofitInstance.api.getRaceDetails(index)
+
+        call.enqueue(object : Callback<RaceDetailsResponse> {
+            override fun onResponse(
+                call: Call<RaceDetailsResponse>,
+                response: Response<RaceDetailsResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val raceDetails = response.body()
+                    Log.d("DND_API", "Race: ${raceDetails?.name}")
+                }
+                else {
+                    Log.e("DND_API", "Response error: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<RaceDetailsResponse>, t: Throwable) {
+                println("Error loading details: ${t.message}")
             }
         })
     }

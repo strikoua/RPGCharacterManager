@@ -1,6 +1,7 @@
 package com.example.dndcharactersheetmanager
 
 
+import com.example.dndcharactersheetmanager.apiCalls.DnDApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -1,4 +1,4 @@
-package com.example.dndcharactersheetmanager
+package com.example.dndcharactersheetmanager.apiCalls
 
 data class ClassDetails(
     val index: String,
