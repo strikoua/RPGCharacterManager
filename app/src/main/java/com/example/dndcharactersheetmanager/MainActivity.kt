@@ -18,11 +18,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         enableEdgeToEdge()
-        getDnDClasses()
-        var index = "barbarian"
-        getClassDetails(index)
-        index = "bard"
-        getClassDetails(index)
+        getDnDRaces()
     }
 
     private fun getDnDClasses() {
@@ -66,6 +62,31 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call<ClassDetails>, t: Throwable) {
                 println("Error loading details: ${t.message}")
+            }
+        })
+    }
+
+    private fun getDnDRaces() {
+        val call = RetrofitInstance.api.getRaces()
+
+        call.enqueue(object : Callback<RaceListResponse> {
+            override fun onResponse(
+                call: Call<RaceListResponse>,
+                response: Response<RaceListResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val raceList = response.body()
+                    Log.d("DND_API", "Success! Got ${raceList?.count} classes")
+                    raceList?.results?.forEach {
+                        Log.d("DND_API", "Race: ${it.name}, Index: ${it.index}")
+                    }
+                } else {
+                    Log.e("DND_API", "Response error: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<RaceListResponse>, t: Throwable) {
+                Log.e("DND_API", "Network Error: ${t.message}")
             }
         })
     }

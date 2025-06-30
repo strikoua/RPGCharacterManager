@@ -12,4 +12,8 @@ interface DnDApiService {
     // Get details about a specific class, like "barbarian"
     @GET("api/classes/{index}")
     fun getClassDetails(@Path("index") index: String): Call<ClassDetails>
+
+    // Get a list of all D&D races
+    @GET("api/races")
+    fun getRaces(): Call<RaceListResponse>
 }
