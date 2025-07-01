@@ -11,7 +11,6 @@ import com.example.dndcharactersheetmanager.apiCalls.ClassDetails
 import com.example.dndcharactersheetmanager.apiCalls.ClassListResponse
 import com.example.dndcharactersheetmanager.apiCalls.RaceDetailsResponse
 import com.example.dndcharactersheetmanager.apiCalls.RaceListResponse
-import kotlin.math.floor
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,7 +18,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         enableEdgeToEdge()
-        getRaceDetails("dragonborn")
     }
 
     private fun getDnDClasses() {

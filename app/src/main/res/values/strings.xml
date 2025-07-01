@@ -9,4 +9,5 @@
     <string name="spells_button">Spells</string>
     <string name="current_hp_text">  </string>
     <string name="maximum_hp"> </string>
+    <string name="no_characters_yet">You haven\'t created any characters yet. Make some by pressing the + button</string>
 </resources>
