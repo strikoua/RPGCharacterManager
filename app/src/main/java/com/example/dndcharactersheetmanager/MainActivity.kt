@@ -1,5 +1,6 @@
 package com.example.dndcharactersheetmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.enableEdgeToEdge
@@ -11,6 +12,7 @@ import com.example.dndcharactersheetmanager.apiCalls.ClassDetails
 import com.example.dndcharactersheetmanager.apiCalls.ClassListResponse
 import com.example.dndcharactersheetmanager.apiCalls.RaceDetailsResponse
 import com.example.dndcharactersheetmanager.apiCalls.RaceListResponse
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +20,11 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         enableEdgeToEdge()
+        val addCharacterButton = findViewById<FloatingActionButton>(R.id.addCharacterButton)
+        addCharacterButton.setOnClickListener() {
+            val intent = Intent (this, CharacterCreation1::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun getDnDClasses() {

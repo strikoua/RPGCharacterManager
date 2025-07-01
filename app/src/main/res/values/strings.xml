@@ -10,4 +10,5 @@
     <string name="current_hp_text">  </string>
     <string name="maximum_hp"> </string>
     <string name="no_characters_yet">You haven\'t created any characters yet. Make some by pressing the + button</string>
+    <string name="choose_character_class">Choose your character\'s class:</string>
 </resources>
