@@ -1,16 +1,19 @@
 package com.example.dndcharactersheetmanager.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import androidx.room.*
 import com.example.dndcharactersheetmanager.apiCalls.ClassDetails
 import com.example.dndcharactersheetmanager.apiCalls.RaceDetailsResponse
 import kotlin.math.floor
 
+@Parcelize
 @Entity(tableName = "characters")
 data class characterSheet (
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     var name: String = "",
     var characterClass: ClassDetails? = null,
-    var race: String = "",
+    var race: RaceDetailsResponse? = null,
     var level: Int = 1,
     var armourClass: Int = 10,
     var strength: Int = 10,
@@ -19,7 +22,7 @@ data class characterSheet (
     var intelligence: Int = 10,
     var wisdom: Int = 10,
     var charisma: Int = 10
-) {
+) : Parcelable {
     init {
         require(name.length <= 50)
         require(level in 1..20)

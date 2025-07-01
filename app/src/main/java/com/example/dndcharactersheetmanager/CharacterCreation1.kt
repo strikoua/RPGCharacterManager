@@ -1,5 +1,6 @@
 package com.example.dndcharactersheetmanager
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
@@ -16,6 +17,11 @@ import retrofit2.Callback
 import retrofit2.Response
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dndcharactersheetmanager.apiCalls.ClassDetails
+import com.example.dndcharactersheetmanager.data.AppDatabase
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class CharacterCreation1 : AppCompatActivity() {
@@ -54,11 +60,22 @@ class CharacterCreation1 : AppCompatActivity() {
             }
             recyclerView.adapter = adapter
         }
+
         nextButton.setOnClickListener {
-            // Proceed to next screen
+            val intent = Intent (this, CharacterCreation2::class.java)
+            intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+            startActivity(intent)
         }
 
+        val db = AppDatabase.getDatabase(this)
+        val characterDao = db.characterDao()
+
         exitButton.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                characterSheet.let {
+                    characterDao.delete(it)
+                }
+            }
             finish()
         }
     }
