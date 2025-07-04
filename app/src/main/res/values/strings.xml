@@ -11,5 +11,9 @@
     <string name="maximum_hp"> </string>
     <string name="no_characters_yet">You haven\'t created any characters yet. Make some by pressing the + button</string>
     <string name="choose_character_class">Choose your character\'s class:</string>
-    <string name="choose_character_race">Choose your character\'s race</string>
+    <string name="choose_character_race">Choose your character\'s race:</string>
+    <string name="fill_in_stats">Fill in your character\'s stats:</string>
+    <string name="error_level_text">Should be between 1 and 20</string>
+    <string name="error_ac_text">Should be between 5 and 50</string>
+    <string name="error_stat_text">Should be between 1 and 30</string>
 </resources>

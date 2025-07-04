@@ -41,8 +41,10 @@ class CharacterCreation2 : AppCompatActivity() {
 
         var characterSheet = intent.getParcelableExtra<characterSheet>("character_sheet")
 
-
+        // Find view
         recyclerView = findViewById(R.id.raceRecyclerView)
+
+        // Find buttons
         nextButton = findViewById(R.id.nextButton)
         backButton = findViewById(R.id.backButton)
         exitButton = findViewById(R.id.exitButton)
@@ -74,9 +76,9 @@ class CharacterCreation2 : AppCompatActivity() {
 
         //TODO
         nextButton.setOnClickListener {
-//            val intent = Intent (this, CharacterCreation2::class.java)
-//            intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
-//            startActivity(intent)
+            val intent = Intent (this, CharacterCreation3::class.java)
+            intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+            startActivity(intent)
         }
 
         backButton.setOnClickListener {
@@ -96,9 +98,6 @@ class CharacterCreation2 : AppCompatActivity() {
             val intent = Intent (this, MainActivity::class.java)
             startActivity(intent)
         }
-//    if (characterSheet != null) {
-//        // use your characterSheet object here
-//    }
 }
     private fun getDnDRace(callback: (List<RaceSummary>) -> Unit) {
     val call = RetrofitInstance.api.getRaces()

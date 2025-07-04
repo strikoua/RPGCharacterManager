@@ -36,6 +36,11 @@
             android:name=".CharacterCreation2"
             android:exported="true"
             android:label="Character Creation 2" />
+
+        <activity
+            android:name=".CharacterCreation3"
+            android:exported="true"
+            android:label="Character Creation 3" />
     </application>
 
 </manifest>

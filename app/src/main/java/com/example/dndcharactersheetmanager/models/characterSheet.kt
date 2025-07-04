@@ -26,6 +26,7 @@ data class characterSheet (
     init {
         require(name.length <= 50)
         require(level in 1..20)
+        require(armourClass in 5..50)
         require(strength in 1..30)
         require(dexterity in 1..30)
         require(constitution in 1..30)
