@@ -41,6 +41,11 @@
             android:name=".CharacterCreation3"
             android:exported="true"
             android:label="Character Creation 3" />
+
+        <activity
+            android:name=".CharacterCreation4"
+            android:exported="true"
+            android:label="Character Creation 4" />
     </application>
 
 </manifest>

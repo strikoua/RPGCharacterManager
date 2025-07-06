@@ -88,9 +88,9 @@ class CharacterCreation3 : AppCompatActivity() {
                 Log.d("DND_API", "ac: ${characterSheet.armourClass}")
                 Log.d("DND_API", "strength: ${characterSheet.strength}")
                 Log.d("DND_API", "str mod: ${characterSheet.str_mod}")
-//                val intent = Intent (this, CharacterCreation2::class.java)
-//                intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
-//                startActivity(intent)
+                val intent = Intent (this, CharacterCreation4::class.java)
+                intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+                startActivity(intent)
             }
         }
         backButton.setOnClickListener {
