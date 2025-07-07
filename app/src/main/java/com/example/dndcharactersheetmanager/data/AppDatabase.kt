@@ -11,7 +11,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun characterDao(): CharacterDao
 
     companion object {
-        @Volatile private var INSTANCE: AppDatabase? = null
+        @Volatile
+        private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {

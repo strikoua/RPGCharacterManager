@@ -6,10 +6,10 @@ import android.util.Log
 import android.widget.Button
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dndcharactersheetmanager.models.characterSheet
 import com.example.dndcharactersheetmanager.adapter.CharacterClassAdapter
-import com.example.dndcharactersheetmanager.RetrofitInstance
 import com.example.dndcharactersheetmanager.apiCalls.ClassListResponse
 import com.example.dndcharactersheetmanager.apiCalls.ClassSummary
 import retrofit2.Call
@@ -17,8 +17,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dndcharactersheetmanager.apiCalls.ClassDetails
-import com.example.dndcharactersheetmanager.data.AppDatabase
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.dndcharactersheetmanager.data.CharacterViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -53,8 +52,6 @@ class CharacterCreation1 : AppCompatActivity() {
                     nextButton.isEnabled = true
                     getClassDetails(index = selected.index) { details ->
                         characterSheet.characterClass = details
-                        Log.d("DND_API", "Class: ${characterSheet.characterClass?.name}, Hit Die: ${characterSheet.characterClass?.hit_die}")
-
                     }
                 }
             }
@@ -62,26 +59,25 @@ class CharacterCreation1 : AppCompatActivity() {
         }
 
         nextButton.setOnClickListener {
-            val intent = Intent (this, CharacterCreation2::class.java)
-            intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+            val intent = Intent(this, CharacterCreation2::class.java)
+            intent.putExtra(
+                "character_sheet",
+                characterSheet
+            ) // pass the character sheet to the next screen
             startActivity(intent)
         }
 
-        val db = AppDatabase.getDatabase(this)
-        val characterDao = db.characterDao()
-
         exitButton.setOnClickListener {
+            val viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
             CoroutineScope(Dispatchers.IO).launch {
                 characterSheet.let {
-                    characterDao.delete(it)
+                    viewModel.deleteCharacter(it)
                 }
             }
-            finish()
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
         }
     }
-
-
-
 
 
     private fun getDnDClasses(callback: (List<ClassSummary>) -> Unit) {
@@ -93,11 +89,8 @@ class CharacterCreation1 : AppCompatActivity() {
                 response: Response<ClassListResponse>
             ) {
                 if (response.isSuccessful) {
-                    val classList = response.body()
-                    Log.d("DND_API", "Success! Got ${classList?.count} classes")
                     callback(response.body()?.results ?: emptyList())
-                }
-                else {
+                } else {
                     Log.e("DND_API", "Response error: ${response.code()}")
                 }
             }
@@ -106,8 +99,8 @@ class CharacterCreation1 : AppCompatActivity() {
                 Log.e("DND_API", "Network Error: ${t.message}")
             }
         })
-        }
     }
+}
 
 private fun getClassDetails(index: String, callback: (ClassDetails) -> Unit) {
     val call = RetrofitInstance.api.getClassDetails(index)

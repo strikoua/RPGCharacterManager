@@ -9,8 +9,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dndcharactersheetmanager.apiCalls.ClassSummary
 
-class CharacterClassAdapter (
-    private val classes:List<ClassSummary>,
+class CharacterClassAdapter(
+    private val classes: List<ClassSummary>,
     private val onItemClick: (ClassSummary) -> Unit
 ) : RecyclerView.Adapter<CharacterClassAdapter.ClassViewHolder>() {
     private var selectedPosition = RecyclerView.NO_POSITION
@@ -25,8 +25,10 @@ class CharacterClassAdapter (
                 onItemClick(classes[selectedPosition])
             }
         }
+
         val classText: TextView = view.findViewById(android.R.id.text1)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClassViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(android.R.layout.simple_list_item_1, parent, false)

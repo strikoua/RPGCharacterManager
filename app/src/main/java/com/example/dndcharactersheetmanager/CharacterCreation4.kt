@@ -9,7 +9,8 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.example.dndcharactersheetmanager.data.AppDatabase
+import androidx.lifecycle.ViewModelProvider
+import com.example.dndcharactersheetmanager.data.CharacterViewModel
 import com.example.dndcharactersheetmanager.models.characterSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -24,8 +25,10 @@ class CharacterCreation4 : AppCompatActivity() {
     private lateinit var nextButton: ImageButton
     private lateinit var backButton: Button
     private lateinit var exitButton: Button
+    private lateinit var viewModel: CharacterViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?){
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation_fourth)
 
@@ -39,6 +42,7 @@ class CharacterCreation4 : AppCompatActivity() {
         exitButton = findViewById(R.id.exitButton)
 
         characterSheet = intent.getParcelableExtra("character_sheet") ?: characterSheet()
+        viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
 
         nextButton.setOnClickListener {
             var isValid = validateName()
@@ -46,30 +50,30 @@ class CharacterCreation4 : AppCompatActivity() {
                 characterSheet.name = nameInputEditText.text.toString()
                 Log.d("DND_API", "name: ${characterSheet.name}")
                 Log.d("DND_API", "race: ${characterSheet.race?.name}")
-                val intent = Intent (this, CharacterSheetView::class.java)
-                intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+                viewModel.addCharacter(characterSheet)
+                val intent = Intent(this@CharacterCreation4, CharacterSheetView::class.java)
+                intent.putExtra("character_sheet", characterSheet)
                 startActivity(intent)
+                finish()
             }
         }
 
         backButton.setOnClickListener {
-            val intent = Intent (this, CharacterCreation1::class.java)
+            val intent = Intent(this, CharacterCreation3::class.java)
             startActivity(intent)
         }
-
-        val db = AppDatabase.getDatabase(this)
-        val characterDao = db.characterDao()
 
         exitButton.setOnClickListener {
             CoroutineScope(Dispatchers.IO).launch {
                 characterSheet.let {
-                    characterDao.delete(it)
+                    viewModel.deleteCharacter(it)
                 }
             }
-            val intent = Intent (this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
+
     private fun showError(editText: EditText, errorText: TextView) {
         editText.setBackgroundResource(R.drawable.error_edit_text_background)
         errorText.visibility = View.VISIBLE

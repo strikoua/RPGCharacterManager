@@ -1,14 +1,23 @@
 package com.example.dndcharactersheetmanager
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
+import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.example.dndcharactersheetmanager.data.AppDatabase
+import com.example.dndcharactersheetmanager.data.CharacterViewModel
 import com.example.dndcharactersheetmanager.models.characterSheet
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class CharacterSheetView :AppCompatActivity() {
+class CharacterSheetView : AppCompatActivity() {
     private lateinit var characterSheet: characterSheet
+    private lateinit var viewModel: CharacterViewModel
+
     private lateinit var name: TextView
     private lateinit var characterClass: TextView
     private lateinit var race: TextView
@@ -22,12 +31,16 @@ class CharacterSheetView :AppCompatActivity() {
     private lateinit var intelligence: TextView
     private lateinit var wisdom: TextView
     private lateinit var charisma: TextView
+    private lateinit var homeButton: Button
+    private lateinit var deleteButton: Button
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_screen)
 
         characterSheet = intent.getParcelableExtra("character_sheet") ?: characterSheet()
+        viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
+
         name = findViewById(R.id.character_name)
         race = findViewById(R.id.character_race)
         characterClass = findViewById(R.id.character_class)
@@ -56,21 +69,27 @@ class CharacterSheetView :AppCompatActivity() {
         wisdom.setText(characterSheet.wisdom.toString())
         charisma.setText(characterSheet.charisma.toString())
 
-        Log.d("DND_API", "name: ${characterSheet.name}")
-        Log.d("DND_API", "race: ${characterSheet.race?.name}")
+        homeButton = findViewById(R.id.homeButton)
+        deleteButton = findViewById(R.id.deleteButton)
 
+        homeButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+            startActivity(intent)
+            finish()
+        }
 
+        val db = AppDatabase.getDatabase(this)
+        val characterDao = db.characterDao()
 
-
-
-
-
-
-
-
-
-
-
-
+        deleteButton.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                characterSheet.let {
+                    viewModel.deleteCharacter(it)
+                }
+            }
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -1,48 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="match_parent"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="16dp">
 
     <RelativeLayout
         android:id="@+id/nameInputLayout"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonLayout"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/buttonLayout">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/nameInputText"
-            android:textSize="24sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="16dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="16dp"
+            android:paddingTop="100dp"
             android:text="@string/name_input_text"
-            android:paddingTop="100dp" />
+            android:textSize="24sp" />
 
         <EditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:autofillHints="@string/name_edit_text_autofill"
             android:layout_below="@+id/nameInputText"
-            android:maxLength="50"
-            android:textColor="@color/black"
+            android:autofillHints="@string/name_edit_text_autofill"
             android:background="@drawable/edit_text_background"
-            android:padding="10dp"/>
+            android:maxLength="50"
+            android:padding="10dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/nameErrorText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/nameEditText"
+            android:gravity="center"
             android:text="@string/error_name_text"
             android:textColor="@android:color/holo_red_dark"
             android:textSize="15sp"
-            android:gravity="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
 
     </RelativeLayout>
@@ -52,28 +52,32 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
         android:gravity="end"
-        android:layout_marginTop="16dp">
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/exitButton"
-            android:text="Exit"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:text="Exit" />
+
         <Button
             android:id="@+id/backButton"
-            android:text="Back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:text="Back" />
+
         <ImageButton
             android:id="@+id/nextButton"
-            android:src="@android:drawable/ic_media_next"
-            android:contentDescription="Next"
-            android:background="?attr/selectableItemBackgroundBorderless"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_marginStart="16dp" />
+            android:layout_marginStart="16dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Next"
+            android:src="@android:drawable/ic_media_next" />
     </LinearLayout>
 
 </RelativeLayout>

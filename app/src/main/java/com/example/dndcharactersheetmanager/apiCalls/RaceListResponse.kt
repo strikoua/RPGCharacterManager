@@ -1,6 +1,6 @@
 package com.example.dndcharactersheetmanager.apiCalls
 
-data class RaceListResponse (
+data class RaceListResponse(
     val count: Int,
     val results: List<RaceSummary>
 )

@@ -7,16 +7,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dndcharactersheetmanager.adapter.CharacterClassAdapter.ClassViewHolder
 import com.example.dndcharactersheetmanager.apiCalls.RaceSummary
 
-class CharacterRaceAdapter (
-    private val races:List<RaceSummary>,
+class CharacterRaceAdapter(
+    private val races: List<RaceSummary>,
     private val onItemClick: (RaceSummary) -> Unit
-) : RecyclerView.Adapter<CharacterRaceAdapter.RaceViewHolder>(){
+) : RecyclerView.Adapter<CharacterRaceAdapter.RaceViewHolder>() {
     var selectedPosition = RecyclerView.NO_POSITION
 
-    inner class RaceViewHolder(view: View) : RecyclerView.ViewHolder(view){
+    inner class RaceViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         init {
             view.setOnClickListener {
                 val previous = selectedPosition
@@ -26,6 +25,7 @@ class CharacterRaceAdapter (
                 onItemClick(races[selectedPosition])
             }
         }
+
         val raceText: TextView = view.findViewById(android.R.id.text1)
     }
 

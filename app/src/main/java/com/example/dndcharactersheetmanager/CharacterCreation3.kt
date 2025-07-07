@@ -2,8 +2,6 @@ package com.example.dndcharactersheetmanager
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -11,7 +9,9 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.dndcharactersheetmanager.data.AppDatabase
+import com.example.dndcharactersheetmanager.data.CharacterViewModel
 import com.example.dndcharactersheetmanager.models.characterSheet
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -88,26 +88,27 @@ class CharacterCreation3 : AppCompatActivity() {
                 Log.d("DND_API", "ac: ${characterSheet.armourClass}")
                 Log.d("DND_API", "strength: ${characterSheet.strength}")
                 Log.d("DND_API", "str mod: ${characterSheet.str_mod}")
-                val intent = Intent (this, CharacterCreation4::class.java)
-                intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+                val intent = Intent(this, CharacterCreation4::class.java)
+                intent.putExtra(
+                    "character_sheet",
+                    characterSheet
+                ) // pass the character sheet to the next screen
                 startActivity(intent)
             }
         }
         backButton.setOnClickListener {
-            val intent = Intent (this, CharacterCreation1::class.java)
+            val intent = Intent(this, CharacterCreation2::class.java)
             startActivity(intent)
         }
 
-        val db = AppDatabase.getDatabase(this)
-        val characterDao = db.characterDao()
-
         exitButton.setOnClickListener {
+            val viewModel = ViewModelProvider(this)[CharacterViewModel::class.java]
             CoroutineScope(Dispatchers.IO).launch {
                 characterSheet.let {
-                    characterDao.delete(it)
+                    viewModel.deleteCharacter(it)
                 }
             }
-            val intent = Intent (this, MainActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
     }
@@ -142,60 +143,50 @@ class CharacterCreation3 : AppCompatActivity() {
         if (level == null || level !in 1..20) {
             showError(levelEditText, levelErrorText)
             isValid = false
-        }
-        else hideError(levelEditText, levelErrorText)
+        } else hideError(levelEditText, levelErrorText)
 
         val ac = acEditText.text.toString().toIntOrNull()
         if (level == null || ac !in 5..50) {
             showError(acEditText, acErrorText)
             isValid = false
-        }
-        else hideError(acEditText, acErrorText)
+        } else hideError(acEditText, acErrorText)
 
         val strength = strengthEditText.text.toString().toIntOrNull()
         if (level == null || strength !in 1..30) {
             showError(strengthEditText, strengthErrorText)
             isValid = false
-        }
-        else hideError(strengthEditText, strengthErrorText)
+        } else hideError(strengthEditText, strengthErrorText)
 
         val dexterity = dexterityEditText.text.toString().toIntOrNull()
         if (level == null || dexterity !in 1..30) {
             showError(dexterityEditText, dexterityErrorText)
             isValid = false
-        }
-        else hideError(dexterityEditText, dexterityErrorText)
+        } else hideError(dexterityEditText, dexterityErrorText)
 
         val constitution = constitutionEditText.text.toString().toIntOrNull()
         if (level == null || constitution !in 1..30) {
             showError(constitutionEditText, constitutionErrorText)
             isValid = false
-        }
-        else hideError(constitutionEditText, constitutionErrorText)
+        } else hideError(constitutionEditText, constitutionErrorText)
 
         val intelligence = intelligenceEditText.text.toString().toIntOrNull()
         if (level == null || intelligence !in 1..30) {
             showError(intelligenceEditText, intelligenceErrorText)
             isValid = false
-        }
-        else hideError(intelligenceEditText, intelligenceErrorText)
+        } else hideError(intelligenceEditText, intelligenceErrorText)
 
         val wisdom = wisdomEditText.text.toString().toIntOrNull()
         if (level == null || wisdom !in 1..30) {
             showError(wisdomEditText, wisdomErrorText)
             isValid = false
-        }
-        else hideError(wisdomEditText, wisdomErrorText)
+        } else hideError(wisdomEditText, wisdomErrorText)
 
         val charisma = charismaEditText.text.toString().toIntOrNull()
         if (level == null || charisma !in 1..30) {
             showError(charismaEditText, charismaErrorText)
             isValid = false
-        }
-        else hideError(charismaEditText, charismaErrorText)
+        } else hideError(charismaEditText, charismaErrorText)
 
         return isValid
     }
 }
-
-

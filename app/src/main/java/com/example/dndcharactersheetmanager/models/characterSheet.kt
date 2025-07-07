@@ -9,7 +9,7 @@ import kotlin.math.floor
 
 @Parcelize
 @Entity(tableName = "characters")
-data class characterSheet (
+data class characterSheet(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     var name: String = "",
     var characterClass: ClassDetails? = null,
@@ -34,6 +34,7 @@ data class characterSheet (
         require(wisdom in 1..30)
         require(charisma in 1..30)
     }
+
     val hitDie: Int?
         get() = characterClass?.hit_die
     val str_mod: Int
