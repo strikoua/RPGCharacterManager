@@ -115,7 +115,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:weightSum="90">
 
@@ -247,7 +246,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingHorizontal="30dp"
             android:paddingVertical="20dp"
             android:weightSum="90">
 
@@ -388,6 +386,7 @@
             android:id="@+id/exitButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
             android:backgroundTint="@android:color/holo_red_dark"
             android:text="Exit" />
 
