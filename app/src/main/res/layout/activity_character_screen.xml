@@ -1,69 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/character_sheet_view"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-
-    <LinearLayout
-        android:id="@+id/basic_character_info"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
-
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/character_image"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_gravity="center"
-            android:scaleType="centerCrop"
-            android:src="@drawable/user_icon"
-            app:shapeAppearanceOverlay="@style/CircleImage"
-            />
+    android:padding="16dp"    >
 
         <LinearLayout
             android:id="@+id/name_race_class_info"
             android:orientation="vertical"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             >
 
-            <EditText
+            <TextView
                 android:id="@+id/character_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/character_name"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:paddingBottom="10dp"/>
 
-            <EditText
+            <TextView
                 android:id="@+id/character_race"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/character_race"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:paddingBottom="10dp"/>
 
-            <EditText
-                android:id="@+id/character_class_level"
+            <TextView
+                android:id="@+id/character_class"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/character_class_level"
+                android:text="@string/character_class"
                 android:textSize="20sp"/>
-        </LinearLayout>
+
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/hp_exhaustion_death_saves"
+    <RelativeLayout
+        android:id="@+id/hp_level_armour_class"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         >
         <LinearLayout
             android:id="@+id/health_points"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
             >
 
             <EditText
@@ -72,36 +58,219 @@
                 android:layout_height="wrap_content"
                 android:inputType="number"
                 android:hint="HP"
-                android:text="20"
+                android:text="  "
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:id="@+id/total_hp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/HP"
                 android:textSize="20sp"/>
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/character_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/character_armour_class"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Armour Class"
+            android:textSize="20sp"
+            android:gravity="end"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/secondRowStats"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="90"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
+
+        <RelativeLayout
+            android:id="@+id/strength"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/strengthText"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/edit_text_background"/>
+
+            <TextView
+                android:id="@+id/strengthDescription"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Strength"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/strengthText"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/dexterity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/dexterityText"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/edit_text_background"/>
+
+            <TextView
+                android:id="@+id/dexterityDescription"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Dexterity"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/dexterityText"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/constitution"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/constitutionText"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/edit_text_background"/>
+
+            <TextView
+                android:id="@+id/constitutionDescription"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Constitution"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/constitutionText"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+
     </LinearLayout>
-
-
-    <Button
-        android:id="@+id/stats_button"
+    <LinearLayout
+        android:id="@+id/thirdRowStats"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/stats_button"/>
+        android:weightSum="90"
+        android:paddingHorizontal="30dp"
+        android:paddingVertical="20dp">
 
-    <Button
-        android:id="@+id/items_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/items_button"/>
+        <RelativeLayout
+            android:id="@+id/intelligence"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
 
-    <Button
-        android:id="@+id/attacks_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/attacks_button"/>
+            <TextView
+                android:id="@+id/intelligenceText"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/edit_text_background"/>
 
-    <Button
-        android:id="@+id/spells_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/spells_button"/>
+            <TextView
+                android:id="@+id/intelligenceDescription"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Intelligence"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/intelligenceText"
+                android:gravity="center"/>
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/wisdom"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
 
+            <TextView
+                android:id="@+id/wisdomText"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/edit_text_background"/>
 
+            <TextView
+                android:id="@+id/wisdomDescription"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Wisdom"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/wisdomText"
+                android:gravity="center"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/charisma"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="30"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="10dp">
+
+            <TextView
+                android:id="@+id/charismaText"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:textColor="@color/black"
+                android:gravity="center"
+                android:background="@drawable/edit_text_background"/>
+
+            <TextView
+                android:id="@+id/charismaDescription"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:text="Charisma"
+                android:textSize="14sp"
+                android:layout_marginTop="4dp"
+                android:layout_below="@id/charismaText"
+                android:gravity="center"/>
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

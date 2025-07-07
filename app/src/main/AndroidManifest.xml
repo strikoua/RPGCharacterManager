@@ -46,6 +46,11 @@
             android:name=".CharacterCreation4"
             android:exported="true"
             android:label="Character Creation 4" />
+
+        <activity
+            android:name=".CharacterSheetView"
+            android:exported="true"
+            android:label="Character Sheet View" />
     </application>
 
 </manifest>

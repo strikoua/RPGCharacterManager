@@ -49,7 +49,7 @@ data class characterSheet (
     val cha_mod: Int
         get() = floor((charisma - 10).toDouble() / 2).toInt()
     val hitPoints: Int
-        get() = (characterClass?.hit_die ?: 0) + (((characterClass?.hit_die ?: 0) / 2) + 1) * (level - 1) + (con_mod * level)
+        get() = (hitDie ?: 0) + (((hitDie ?: 0) / 2) + 1) * (level - 1) + (con_mod * level)
     val proficiencyBonus: Int
         get() {
             when {

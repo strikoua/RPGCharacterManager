@@ -38,16 +38,17 @@ class CharacterCreation4 : AppCompatActivity() {
         backButton = findViewById(R.id.backButton)
         exitButton = findViewById(R.id.exitButton)
 
-        characterSheet = intent.getParcelableExtra("characterSheet") ?: characterSheet()
+        characterSheet = intent.getParcelableExtra("character_sheet") ?: characterSheet()
 
         nextButton.setOnClickListener {
             var isValid = validateName()
             if (isValid) {
                 characterSheet.name = nameInputEditText.text.toString()
                 Log.d("DND_API", "name: ${characterSheet.name}")
-//                val intent = Intent (this, CharacterCreation2::class.java)
-//                intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
-//                startActivity(intent)
+                Log.d("DND_API", "race: ${characterSheet.race?.name}")
+                val intent = Intent (this, CharacterSheetView::class.java)
+                intent.putExtra("character_sheet", characterSheet) // pass the character sheet to the next screen
+                startActivity(intent)
             }
         }
 

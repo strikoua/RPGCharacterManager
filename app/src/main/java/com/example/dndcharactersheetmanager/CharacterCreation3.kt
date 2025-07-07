@@ -46,7 +46,7 @@ class CharacterCreation3 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation_third)
 
-        characterSheet = intent.getParcelableExtra("characterSheet") ?: characterSheet()
+        characterSheet = intent.getParcelableExtra("character_sheet") ?: characterSheet()
 
         // Find views
         levelEditText = findViewById(R.id.levelEditText)

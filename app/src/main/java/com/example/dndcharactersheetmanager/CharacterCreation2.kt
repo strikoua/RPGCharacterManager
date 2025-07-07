@@ -26,6 +26,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class CharacterCreation2 : AppCompatActivity() {
+    private lateinit var characterSheet: characterSheet
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: CharacterRaceAdapter
     private lateinit var nextButton: ImageButton
@@ -39,7 +40,7 @@ class CharacterCreation2 : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_character_creation_second)
 
-        var characterSheet = intent.getParcelableExtra<characterSheet>("character_sheet")
+        characterSheet = intent.getParcelableExtra("character_sheet") ?: characterSheet()
 
         // Find view
         recyclerView = findViewById(R.id.raceRecyclerView)
